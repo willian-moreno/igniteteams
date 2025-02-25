@@ -1,7 +1,8 @@
+import { Loading } from '@components/loading'
 import { Roboto_400Regular, Roboto_700Bold, useFonts } from '@expo-google-fonts/roboto'
 import { Groups } from '@screens/groups'
 import { defaultTheme } from '@themes/index'
-import { ActivityIndicator, StatusBar } from 'react-native'
+import { StatusBar } from 'react-native'
 import { ThemeProvider } from 'styled-components'
 
 export function App() {
@@ -10,7 +11,7 @@ export function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <StatusBar barStyle={'light-content'} backgroundColor="transparent" translucent />
-      {fontsLoaded ? <Groups /> : <ActivityIndicator />}
+      {fontsLoaded ? <Groups /> : <Loading />}
     </ThemeProvider>
   )
 }
