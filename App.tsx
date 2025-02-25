@@ -1,5 +1,5 @@
+import { Groups } from '@screens/groups'
 import { StatusBar } from 'react-native'
-import { Groups } from './src/screens/groups'
 
 export function App() {
   return (
