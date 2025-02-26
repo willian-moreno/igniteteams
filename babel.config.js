@@ -7,6 +7,7 @@ module.exports = function (api) {
         'module-resolver', {
           root: ['./src'],
           alias: {
+            '@@types': './src/@types',
             '@assets': './src/assets',
             '@components': './src/components',
             '@routes': './src/routes',

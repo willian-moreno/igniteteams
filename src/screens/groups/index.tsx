@@ -1,3 +1,4 @@
+import { Button } from '@components/button'
 import { GroupCard } from '@components/group-card'
 import { Header } from '@components/header'
 import { Highlight } from '@components/highlight'
@@ -26,6 +27,7 @@ export function Groups() {
         contentContainerStyle={groups.length === 0 && { flex: 1 }}
         ListEmptyComponent={() => <ListEmpty message="Que tal cadastrar a primeira turma?" />}
       />
+      <Button title="Criar nova turma" />
     </Container>
   )
 }
