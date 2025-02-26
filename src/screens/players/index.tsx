@@ -4,6 +4,7 @@ import { Filter } from '@components/filter'
 import { Header } from '@components/header'
 import { Highlight } from '@components/highlight'
 import { Input } from '@components/input'
+import { ListEmpty } from '@components/list-empty'
 import { PlayerCard } from '@components/player-card'
 import { useMemo, useState } from 'react'
 import { FlatList } from 'react-native'
@@ -112,6 +113,7 @@ export function Players({}: Props) {
           />
         )}
         showsVerticalScrollIndicator={false}
+        ListEmptyComponent={() => <ListEmpty message="Não há pessoas nesse time." />}
       />
       <Button title="Remover turma" variant="secondary" style={{ marginTop: 20 }} />
     </Container>
