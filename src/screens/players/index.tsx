@@ -113,6 +113,10 @@ export function Players({}: Props) {
           />
         )}
         showsVerticalScrollIndicator={false}
+        contentContainerStyle={[
+          { paddingBottom: 100 },
+          numberOfActiveTeamPlayers === 0 && { flex: 1 },
+        ]}
         ListEmptyComponent={() => <ListEmpty message="Não há pessoas nesse time." />}
       />
       <Button title="Remover turma" variant="secondary" style={{ marginTop: 20 }} />
