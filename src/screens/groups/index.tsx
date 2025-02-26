@@ -1,4 +1,4 @@
-import { Header } from '@components/Header'
+import { Header } from '@components/header'
 import { Highlight } from '@components/highlight'
 import { Container } from './styles'
 
