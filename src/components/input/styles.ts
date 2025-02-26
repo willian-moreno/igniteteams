@@ -1,5 +1,5 @@
 import { TextInput } from 'react-native'
-import styled from 'styled-components/native'
+import styled, { css } from 'styled-components/native'
 
 export const Container = styled(TextInput)`
   flex: 1;
@@ -10,9 +10,11 @@ export const Container = styled(TextInput)`
   max-height: 56px;
   border-radius: 6px;
 
-  background-color: ${({ theme }) => theme.colors.gray_700};
-  color: ${({ theme }) => theme.colors.white};
+  ${({ theme }) => css`
+    background-color: ${theme.colors.gray_700};
+    color: ${theme.colors.white};
 
-  font-size: ${({ theme }) => theme.font_size.md};
-  font-family: ${({ theme }) => theme.font_family.regular};
+    font-size: ${theme.font_size.md};
+    font-family: ${theme.font_family.regular};
+  `};
 `
