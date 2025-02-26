@@ -6,6 +6,7 @@ import { Highlight } from '@components/highlight'
 import { Input } from '@components/input'
 import { ListEmpty } from '@components/list-empty'
 import { PlayerCard } from '@components/player-card'
+import { useNavigation } from '@react-navigation/native'
 import { useMemo, useState } from 'react'
 import { FlatList } from 'react-native'
 import uuid from 'react-native-uuid'
@@ -26,6 +27,7 @@ type Team = {
 }
 
 export function Players({}: Props) {
+  const navigation = useNavigation()
   const { colors } = useTheme()
   const [playerName, setPlayerName] = useState('')
   const [teams, setTeams] = useState<Team[]>([
@@ -38,6 +40,10 @@ export function Players({}: Props) {
   }, [teams, activeTeamId])
   const numberOfActiveTeamPlayers = useMemo(() => activeTeamPlayers?.length, [teams, activeTeamId])
   const isAddPlayerButtonDisabled = playerName.trim().length === 0
+
+  function handleGoBack() {
+    navigation.goBack()
+  }
 
   function handleAddPlayerInActiveTeam() {
     setTeams((state) => {
@@ -75,7 +81,7 @@ export function Players({}: Props) {
 
   return (
     <Container>
-      <Header showBackButton />
+      <Header showBackButton onBackButtonPress={handleGoBack} />
       <Highlight title="Nome da turma" subtitle="adicione a galera e separe os times" />
       <InputContainer>
         <Input
