@@ -24,7 +24,7 @@ export const HeaderList = styled.View`
   align-items: center;
 
   width: 100%;
-  margin: 32px 0 12px;
+  margin: 32px 0 20px;
 `
 
 export const NumberOfPlayers = styled.Text`
