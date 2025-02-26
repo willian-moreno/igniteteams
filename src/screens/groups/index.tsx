@@ -17,7 +17,7 @@ export function Groups() {
   const [groups, setGroups] = useState<Group[]>([])
   const navigation = useNavigation()
 
-  function handleAddNewGroup() {
+  function handleNavigateToNewGroupScreen() {
     navigation.navigate('new-group')
   }
 
@@ -33,7 +33,7 @@ export function Groups() {
         contentContainerStyle={groups.length === 0 && { flex: 1 }}
         ListEmptyComponent={() => <ListEmpty message="Que tal cadastrar a primeira turma?" />}
       />
-      <Button title="Criar nova turma" onPress={handleAddNewGroup} />
+      <Button title="Criar nova turma" onPress={handleNavigateToNewGroupScreen} />
     </Container>
   )
 }

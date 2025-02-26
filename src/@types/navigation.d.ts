@@ -5,7 +5,6 @@ export declare global {
       'new-group': undefined
       players: {
         group: {
-          id: string
           title: string
         }
       }
