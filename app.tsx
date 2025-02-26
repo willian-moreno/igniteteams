@@ -11,7 +11,7 @@ export function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <StatusBar barStyle={'light-content'} backgroundColor="transparent" translucent />
-      {fontsLoaded ? <Players classId="23232" /> : <Loading />}
+      {fontsLoaded ? <Players /> : <Loading />}
     </ThemeProvider>
   )
 }

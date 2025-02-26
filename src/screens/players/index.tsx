@@ -12,9 +12,7 @@ import uuid from 'react-native-uuid'
 import { useTheme } from 'styled-components'
 import { Container, HeaderList, InputContainer, NumberOfPlayers } from './styles'
 
-type Props = {
-  classId: string
-}
+type Props = {}
 
 type Player = {
   id: string
@@ -31,7 +29,7 @@ export function Players({}: Props) {
   const { colors } = useTheme()
   const [playerName, setPlayerName] = useState('')
   const [teams, setTeams] = useState<Team[]>([
-    { id: 'team-a', title: 'Time A', players: [{ id: uuid.v4(), name: 'Will' }] },
+    { id: 'team-a', title: 'Time A', players: [] },
     { id: 'team-b', title: 'Time B', players: [] },
   ])
   const [activeTeamId, setActiveTeamId] = useState('team-a')
