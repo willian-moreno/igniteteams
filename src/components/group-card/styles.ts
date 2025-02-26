@@ -22,7 +22,7 @@ export const Title = styled.Text.attrs(() => ({
 
   ${({ theme }) => css`
     font-size: ${theme.font_size.md}px;
-    font-family: ${theme.font_family.regular}px;
+    font-family: ${theme.font_family.regular};
 
     color: ${theme.colors.gray_200};
   `};
