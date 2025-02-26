@@ -39,6 +39,7 @@ export function Players({}: Props) {
     return teams.find((team) => team.id === activeTeamId)?.players
   }, [teams, activeTeamId])
   const numberOfActiveTeamPlayers = useMemo(() => activeTeamPlayers?.length, [teams, activeTeamId])
+  const isAddPlayerButtonDisabled = playerName.trim().length === 0
 
   function handleAddPlayerInActiveTeam() {
     setTeams((state) => {
@@ -86,7 +87,11 @@ export function Players({}: Props) {
           autoCorrect={false}
           onChangeText={(value) => setPlayerName(value)}
         />
-        <ButtonIcon icon="add" onPress={handleAddPlayerInActiveTeam} />
+        <ButtonIcon
+          icon="add"
+          onPress={handleAddPlayerInActiveTeam}
+          disabled={isAddPlayerButtonDisabled}
+        />
       </InputContainer>
       <HeaderList>
         <FlatList
