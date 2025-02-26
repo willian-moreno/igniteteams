@@ -1,6 +1,6 @@
 import { Loading } from '@components/loading'
 import { Roboto_400Regular, Roboto_700Bold, useFonts } from '@expo-google-fonts/roboto'
-import { Players } from '@screens/players'
+import { Routes } from '@routes/index'
 import { defaultTheme } from '@themes/index'
 import { StatusBar } from 'react-native'
 import { ThemeProvider } from 'styled-components'
@@ -11,7 +11,7 @@ export function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <StatusBar barStyle={'light-content'} backgroundColor="transparent" translucent />
-      {fontsLoaded ? <Players /> : <Loading />}
+      {fontsLoaded ? <Routes /> : <Loading />}
     </ThemeProvider>
   )
 }
