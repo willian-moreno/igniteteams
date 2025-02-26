@@ -2,13 +2,15 @@ import { ThemeType } from '@@types/styled'
 import { TouchableOpacity } from 'react-native'
 import styled, { css } from 'styled-components/native'
 
-export type ButtonTypeStyleProps = 'primary' | 'secondary'
+export type ButtonVariantStyleProps = 'primary' | 'secondary'
 
 type Props = {
-  variant: ButtonTypeStyleProps
+  variant: ButtonVariantStyleProps
 }
 
-const variants: (theme: ThemeType) => Record<ButtonTypeStyleProps, string | number> = (theme) => ({
+const variants: (theme: ThemeType) => Record<ButtonVariantStyleProps, string | number> = (
+  theme,
+) => ({
   primary: theme.colors.green_700,
   secondary: theme.colors.red_dark,
 })
