@@ -5,7 +5,6 @@ export const Container = styled(TextInput)`
   flex: 1;
 
   padding: 16px;
-  margin-bottom: 20px;
   min-height: 56px;
   max-height: 56px;
   border-radius: 6px;
