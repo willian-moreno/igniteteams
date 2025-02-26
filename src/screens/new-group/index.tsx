@@ -1,6 +1,7 @@
 import { Button } from '@components/button'
 import { Header } from '@components/header'
 import { Highlight } from '@components/highlight'
+import { Input } from '@components/input'
 import { Container, Content, Icon } from './styles'
 
 export function NewGroup() {
@@ -10,6 +11,7 @@ export function NewGroup() {
       <Content>
         <Icon />
         <Highlight title="Nova Turma" subtitle="crie uma turma para adicionar pessoas" />
+        <Input placeholder="Nome da turma" />
         <Button title="Criar" />
       </Content>
     </Container>
