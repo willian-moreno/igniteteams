@@ -6,7 +6,6 @@ export type FilterStyleProps = {
 }
 
 export const Container = styled(TouchableOpacity)<FilterStyleProps>`
-  flex: 1;
   align-items: center;
   justify-content: center;
 
