@@ -99,7 +99,18 @@ export function Players() {
   }
 
   function handleRemovePlayerFromActiveTeam(playerId: string) {
-    removePlayerFromActiveTeam(playerId)
+    Alert.alert('Remover', 'Deseja remover o participante?', [
+      {
+        text: 'Sim',
+        onPress: () => {
+          removePlayerFromActiveTeam(playerId)
+        },
+      },
+      {
+        text: 'Não',
+        style: 'cancel',
+      },
+    ])
   }
 
   function handleRemoveGroup() {
