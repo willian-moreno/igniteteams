@@ -102,9 +102,20 @@ export function Players() {
     removePlayerFromActiveTeam(playerId)
   }
 
-  async function handleRemoveGroup() {
-    await deleteGroup(group.id)
-    navigation.navigate('groups')
+  function handleRemoveGroup() {
+    Alert.alert('Remover', 'Deseja remover o grupo?', [
+      {
+        text: 'Sim',
+        onPress: async () => {
+          await deleteGroup(group.id)
+          navigation.navigate('groups')
+        },
+      },
+      {
+        text: 'Não',
+        style: 'cancel',
+      },
+    ])
   }
 
   useFocusEffect(
