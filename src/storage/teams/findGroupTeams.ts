@@ -1,4 +1,4 @@
-import { findAllGroups } from './findAllGroups'
+import { findAllGroups } from '../group/findAllGroups'
 
 export async function findGroupTeams(groupId: string) {
   try {

@@ -1,9 +1,9 @@
-import { Team } from '@@types/group'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { GROUP_COLLECTION } from '@storage/storageConfig'
-import { findAllGroups } from './findAllGroups'
+import { TeamStorageDTO } from '@storage/TeamStorageDTO'
+import { findAllGroups } from '../group/findAllGroups'
 
-export async function updateGroupTeams(groupId: string, updatedTeams: Team[]) {
+export async function updateGroupTeams(groupId: string, updatedTeams: TeamStorageDTO[]) {
   try {
     const groups = await findAllGroups()
     const groupIndex = groups.findIndex((group) => group.id === groupId)
