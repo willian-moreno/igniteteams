@@ -4,6 +4,7 @@ import { Highlight } from '@components/highlight'
 import { Input } from '@components/input'
 import { useNavigation } from '@react-navigation/native'
 import { useState } from 'react'
+import uuid from 'react-native-uuid'
 import { Container, Content, Icon } from './styles'
 
 export function NewGroup() {
@@ -14,6 +15,7 @@ export function NewGroup() {
   function handleAddNewGroup() {
     navigation.navigate('players', {
       group: {
+        id: uuid.v4(),
         title: groupTitle,
       },
     })
