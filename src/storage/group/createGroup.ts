@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { GROUP_COLLECTION } from '@storage/storageConfig'
+import { AppError } from '@utils/AppError'
 import uuid from 'react-native-uuid'
 import { findAllGroups } from './findAllGroups'
 
@@ -9,7 +10,7 @@ export async function createGroup(groupTitle: string) {
     const groupAlreadyExists = groups.findIndex((group) => group.title === groupTitle) !== -1
 
     if (groupAlreadyExists) {
-      throw new Error('Grupo já existente.')
+      throw new AppError('Grupo já existe.')
     }
 
     const group = {

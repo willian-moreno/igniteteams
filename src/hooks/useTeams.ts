@@ -1,4 +1,5 @@
 import { Player, Team } from '@@types/group'
+import { AppError } from '@utils/AppError'
 import { useMemo, useState } from 'react'
 
 export function useTeams() {
@@ -21,16 +22,16 @@ export function useTeams() {
   }
 
   function addPlayerInActiveTeam(player: Player) {
+    const activeTeamIndex = teams.findIndex((team) => team.id === activeTeamId)
+
+    const playerAlreadyExists =
+      teams[activeTeamIndex].players.findIndex(({ name }) => name === player.name) !== -1
+
+    if (playerAlreadyExists) {
+      throw new AppError('Participante já existe.')
+    }
+
     setTeams((state) => {
-      const activeTeamIndex = state.findIndex((team) => team.id === activeTeamId)
-
-      const playerAlreadyExists =
-        state[activeTeamIndex].players.findIndex(({ name }) => name === player.name) !== -1
-
-      if (playerAlreadyExists) {
-        return state
-      }
-
       state[activeTeamIndex].players.push(player)
 
       return [...state]

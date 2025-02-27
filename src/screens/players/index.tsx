@@ -11,8 +11,9 @@ import { RouteProp, useFocusEffect, useNavigation, useRoute } from '@react-navig
 import { deleteGroup } from '@storage/group/deleteGroup'
 import { findGroupTeams } from '@storage/group/findGroupTeams'
 import { updateGroupTeams } from '@storage/group/updateGroupTeams'
+import { AppError } from '@utils/AppError'
 import { useCallback, useEffect, useState } from 'react'
-import { FlatList } from 'react-native'
+import { Alert, FlatList } from 'react-native'
 import uuid from 'react-native-uuid'
 import { useTheme } from 'styled-components'
 import { Container, HeaderList, InputContainer, NumberOfPlayers } from './styles'
@@ -70,12 +71,23 @@ export function Players() {
   }
 
   function handleAddPlayerInActiveTeam() {
-    addPlayerInActiveTeam({
-      id: uuid.v4(),
-      name: playerName,
-    })
+    try {
+      addPlayerInActiveTeam({
+        id: uuid.v4(),
+        name: playerName.trim(),
+      })
 
-    setPlayerName('')
+      setPlayerName('')
+    } catch (error) {
+      if (error instanceof AppError) {
+        Alert.alert('Novo participante', error.message)
+
+        return
+      }
+
+      Alert.alert('Novo participante', 'Não foi possível cadastrar um novo participante.')
+      console.error(error)
+    }
   }
 
   function handleRemovePlayerFromActiveTeam(playerId: string) {
