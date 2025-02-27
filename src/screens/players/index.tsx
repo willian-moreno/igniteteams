@@ -27,16 +27,22 @@ type Team = {
 
 export function Players({}: Props) {
   const { colors } = useTheme()
+
   const [playerName, setPlayerName] = useState('')
+
   const [teams, setTeams] = useState<Team[]>([
     { id: 'team-a', title: 'Time A', players: [] },
     { id: 'team-b', title: 'Time B', players: [] },
   ])
+
   const [activeTeamId, setActiveTeamId] = useState('team-a')
+
   const activeTeamPlayers = useMemo(() => {
     return teams.find((team) => team.id === activeTeamId)?.players
   }, [teams, activeTeamId])
+
   const numberOfActiveTeamPlayers = useMemo(() => activeTeamPlayers?.length, [teams, activeTeamId])
+
   const isAddPlayerButtonDisabled = playerName.trim().length === 0
 
   function handleAddPlayerInActiveTeam() {

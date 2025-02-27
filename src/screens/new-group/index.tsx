@@ -9,7 +9,9 @@ import { Container, Content, Icon } from './styles'
 
 export function NewGroup() {
   const navigation = useNavigation()
+
   const [groupTitle, setGroupTitle] = useState('')
+
   const isAddNewGroupButtonDisabled = groupTitle.trim().length === 0
 
   function handleAddNewGroup() {

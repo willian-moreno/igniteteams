@@ -15,6 +15,7 @@ type Group = {
 
 export function Groups() {
   const [groups, setGroups] = useState<Group[]>([])
+
   const navigation = useNavigation()
 
   function handleNavigateToNewGroupScreen() {
