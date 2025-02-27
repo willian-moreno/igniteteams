@@ -1,15 +1,5 @@
+import { Player, Team } from '@@types/group'
 import { useMemo, useState } from 'react'
-
-export type Player = {
-  id: string
-  name: string
-}
-
-export type Team = {
-  id: string
-  title: string
-  players: Player[]
-}
 
 type Props = {
   defaultTeams: Team[]

@@ -1,3 +1,4 @@
+import { Group } from '@@types/group'
 import { Button } from '@components/button'
 import { GroupCard } from '@components/group-card'
 import { Header } from '@components/header'
@@ -7,11 +8,6 @@ import { useNavigation } from '@react-navigation/native'
 import { useState } from 'react'
 import { FlatList } from 'react-native'
 import { Container } from './styles'
-
-type Group = {
-  id: string
-  title: string
-}
 
 export function Groups() {
   const [groups, setGroups] = useState<Group[]>([])
