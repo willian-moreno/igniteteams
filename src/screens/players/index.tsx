@@ -5,6 +5,7 @@ import { Header } from '@components/header'
 import { Highlight } from '@components/highlight'
 import { Input } from '@components/input'
 import { ListEmpty } from '@components/list-empty'
+import { Loading } from '@components/loading'
 import { PlayerCard } from '@components/player-card'
 import { useTeams } from '@hooks/useTeams'
 import { RouteProp, useFocusEffect, useNavigation, useRoute } from '@react-navigation/native'
@@ -46,12 +47,16 @@ export function Players() {
   } = useTeams()
 
   const [playerName, setPlayerName] = useState('')
+
+  const [isLoading, setIsLoading] = useState(true)
+
   const isAddPlayerButtonDisabled = playerName.trim().length === 0
 
   const playerNameInputRef = useRef<TextInput>(null)
 
   async function loadStorageGroupTeams() {
     try {
+      setIsLoading(true)
       const teams = await findGroupTeams(group.id)
 
       if (!teams) {
@@ -61,14 +66,19 @@ export function Players() {
       updateTeams(teams)
     } catch (error) {
       console.error(error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
   async function updateStorageGroupTeams() {
     try {
+      setIsLoading(true)
       await updateGroupTeams(group.id, teams)
     } catch (error) {
       console.error(error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -76,7 +86,7 @@ export function Players() {
     updateActiveTeamId(teamId)
   }
 
-  function handleAddPlayerInActiveTeam() {
+  async function handleAddPlayerInActiveTeam() {
     try {
       addPlayerInActiveTeam({
         id: uuid.v4(),
@@ -173,22 +183,26 @@ export function Players() {
         />
         <NumberOfPlayers>{numberOfActiveTeamPlayers}</NumberOfPlayers>
       </HeaderList>
-      <FlatList
-        data={activeTeamPlayers}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <PlayerCard
-            name={item.name}
-            onRemovePress={() => handleRemovePlayerFromActiveTeam(item.id)}
-          />
-        )}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={[
-          { paddingBottom: 100 },
-          numberOfActiveTeamPlayers === 0 && { flex: 1 },
-        ]}
-        ListEmptyComponent={() => <ListEmpty message="Não há pessoas nesse time." />}
-      />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <FlatList
+          data={activeTeamPlayers}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <PlayerCard
+              name={item.name}
+              onRemovePress={() => handleRemovePlayerFromActiveTeam(item.id)}
+            />
+          )}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={[
+            { paddingBottom: 100 },
+            numberOfActiveTeamPlayers === 0 && { flex: 1 },
+          ]}
+          ListEmptyComponent={() => <ListEmpty message="Não há pessoas nesse time." />}
+        />
+      )}
       <Button
         title="Remover turma"
         variant="secondary"
