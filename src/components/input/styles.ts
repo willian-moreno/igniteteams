@@ -13,7 +13,7 @@ export const Container = styled(TextInput)`
     background-color: ${theme.colors.gray_700};
     color: ${theme.colors.white};
 
-    font-size: ${theme.font_size.md};
+    font-size: ${theme.font_size.md}px;
     font-family: ${theme.font_family.regular};
   `};
 `
