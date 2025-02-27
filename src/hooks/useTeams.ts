@@ -1,12 +1,8 @@
 import { Player, Team } from '@@types/group'
 import { useMemo, useState } from 'react'
 
-type Props = {
-  defaultTeams: Team[]
-}
-
-export function useTeams({ defaultTeams = [] }: Props) {
-  const [teams, setTeams] = useState<Team[]>(defaultTeams)
+export function useTeams() {
+  const [teams, setTeams] = useState<Team[]>([])
 
   const [activeTeamId, setActiveTeamId] = useState('team-a')
 
@@ -15,6 +11,10 @@ export function useTeams({ defaultTeams = [] }: Props) {
   }, [teams, activeTeamId])
 
   const numberOfActiveTeamPlayers = useMemo(() => activeTeamPlayers?.length, [teams, activeTeamId])
+
+  function updateTeams(teams: Team[]) {
+    setTeams(teams)
+  }
 
   function updateActiveTeamId(teamId: string) {
     setActiveTeamId(teamId)
@@ -55,6 +55,7 @@ export function useTeams({ defaultTeams = [] }: Props) {
     activeTeamPlayers,
     numberOfActiveTeamPlayers,
 
+    updateTeams,
     updateActiveTeamId,
     addPlayerInActiveTeam,
     removePlayerFromActiveTeam,

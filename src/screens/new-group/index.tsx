@@ -3,8 +3,8 @@ import { Header } from '@components/header'
 import { Highlight } from '@components/highlight'
 import { Input } from '@components/input'
 import { useNavigation } from '@react-navigation/native'
+import { createGroup } from '@storage/group/createGroup'
 import { useState } from 'react'
-import uuid from 'react-native-uuid'
 import { Container, Content, Icon } from './styles'
 
 export function NewGroup() {
@@ -14,13 +14,16 @@ export function NewGroup() {
 
   const isAddNewGroupButtonDisabled = groupTitle.trim().length === 0
 
-  function handleAddNewGroup() {
-    navigation.navigate('players', {
-      group: {
-        id: uuid.v4(),
-        title: groupTitle,
-      },
-    })
+  async function handleAddNewGroup() {
+    try {
+      const group = await createGroup(groupTitle)
+
+      navigation.navigate('players', {
+        group,
+      })
+
+      setGroupTitle('')
+    } catch (error) {}
   }
 
   return (

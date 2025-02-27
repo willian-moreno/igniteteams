@@ -7,8 +7,11 @@ import { Input } from '@components/input'
 import { ListEmpty } from '@components/list-empty'
 import { PlayerCard } from '@components/player-card'
 import { useTeams } from '@hooks/useTeams'
-import { useRoute } from '@react-navigation/native'
-import { useState } from 'react'
+import { RouteProp, useFocusEffect, useNavigation, useRoute } from '@react-navigation/native'
+import { deleteGroup } from '@storage/group/deleteGroup'
+import { findGroupTeams } from '@storage/group/findGroupTeams'
+import { updateGroupTeams } from '@storage/group/updateGroupTeams'
+import { useCallback, useEffect, useState } from 'react'
 import { FlatList } from 'react-native'
 import uuid from 'react-native-uuid'
 import { useTheme } from 'styled-components'
@@ -22,9 +25,11 @@ type RouteParams = {
 }
 
 export function Players() {
-  const route = useRoute()
+  const navigation = useNavigation()
 
-  const { group } = route.params as RouteParams
+  const {
+    params: { group },
+  } = useRoute<RouteProp<{ params: RouteParams }>>()
 
   const { colors } = useTheme()
 
@@ -33,18 +38,32 @@ export function Players() {
     activeTeamId,
     activeTeamPlayers,
     numberOfActiveTeamPlayers,
+    updateTeams,
     updateActiveTeamId,
     addPlayerInActiveTeam,
     removePlayerFromActiveTeam,
-  } = useTeams({
-    defaultTeams: [
-      { id: 'team-a', title: 'Time A', players: [] },
-      { id: 'team-b', title: 'Time B', players: [] },
-    ],
-  })
+  } = useTeams()
 
   const [playerName, setPlayerName] = useState('')
   const isAddPlayerButtonDisabled = playerName.trim().length === 0
+
+  async function loadStorageGroupTeams() {
+    try {
+      const teams = await findGroupTeams(group.id)
+
+      if (!teams) {
+        return
+      }
+
+      updateTeams(teams)
+    } catch (error) {}
+  }
+
+  async function updateStorageGroupTeams() {
+    try {
+      await updateGroupTeams(group.id, teams)
+    } catch (error) {}
+  }
 
   function handleSetActiveTeamId(teamId: string) {
     updateActiveTeamId(teamId)
@@ -62,6 +81,21 @@ export function Players() {
   function handleRemovePlayerFromActiveTeam(playerId: string) {
     removePlayerFromActiveTeam(playerId)
   }
+
+  async function handleRemoveGroup() {
+    await deleteGroup(group.id)
+    navigation.navigate('groups')
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      loadStorageGroupTeams()
+    }, []),
+  )
+
+  useEffect(() => {
+    updateStorageGroupTeams()
+  }, [group, teams])
 
   return (
     <Container>
@@ -112,7 +146,12 @@ export function Players() {
         ]}
         ListEmptyComponent={() => <ListEmpty message="Não há pessoas nesse time." />}
       />
-      <Button title="Remover turma" variant="secondary" style={{ marginTop: 20 }} />
+      <Button
+        title="Remover turma"
+        variant="secondary"
+        style={{ marginTop: 20 }}
+        onPress={handleRemoveGroup}
+      />
     </Container>
   )
 }
