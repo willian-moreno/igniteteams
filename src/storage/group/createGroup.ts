@@ -6,6 +6,12 @@ import { findAllGroups } from './findAllGroups'
 export async function createGroup(groupTitle: string) {
   try {
     const groups = await findAllGroups()
+    const groupAlreadyExists = groups.findIndex((group) => group.title === groupTitle) !== -1
+
+    if (groupAlreadyExists) {
+      throw new Error('Grupo já existente.')
+    }
+
     const group = {
       id: uuid.v4(),
       title: groupTitle,
