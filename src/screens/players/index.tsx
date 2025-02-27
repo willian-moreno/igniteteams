@@ -12,8 +12,8 @@ import { deleteGroup } from '@storage/group/deleteGroup'
 import { findGroupTeams } from '@storage/teams/findGroupTeams'
 import { updateGroupTeams } from '@storage/teams/updateGroupTeams'
 import { AppError } from '@utils/AppError'
-import { useCallback, useEffect, useState } from 'react'
-import { Alert, FlatList } from 'react-native'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { Alert, FlatList, TextInput } from 'react-native'
 import uuid from 'react-native-uuid'
 import { useTheme } from 'styled-components'
 import { Container, HeaderList, InputContainer, NumberOfPlayers } from './styles'
@@ -47,6 +47,8 @@ export function Players() {
 
   const [playerName, setPlayerName] = useState('')
   const isAddPlayerButtonDisabled = playerName.trim().length === 0
+
+  const playerNameInputRef = useRef<TextInput>(null)
 
   async function loadStorageGroupTeams() {
     try {
@@ -82,6 +84,8 @@ export function Players() {
       })
 
       setPlayerName('')
+
+      playerNameInputRef?.current?.blur()
     } catch (error) {
       if (error instanceof AppError) {
         Alert.alert('Novo participante', error.message)
@@ -119,6 +123,7 @@ export function Players() {
       <Highlight title={group.title} subtitle="adicione a galera e separe os times" />
       <InputContainer>
         <Input
+          inputRef={playerNameInputRef}
           value={playerName}
           placeholder="Nome do participante"
           placeholderTextColor={colors.gray_300}
