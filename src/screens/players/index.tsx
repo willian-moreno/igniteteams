@@ -57,13 +57,17 @@ export function Players() {
       }
 
       updateTeams(teams)
-    } catch (error) {}
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   async function updateStorageGroupTeams() {
     try {
       await updateGroupTeams(group.id, teams)
-    } catch (error) {}
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   function handleSetActiveTeamId(teamId: string) {
